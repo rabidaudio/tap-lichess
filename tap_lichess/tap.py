@@ -22,6 +22,7 @@ class TapLichess(Tap):
         th.Property(
             "auth_token",
             th.StringType,
+            required=False,
             description="The token to authenticate against the API service. "
             "Not required.",
         ),

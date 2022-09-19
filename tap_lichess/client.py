@@ -24,7 +24,7 @@ class LichessStream(OpenApi3Stream):
     @cached
     def authenticator(self) -> Optional[BearerTokenAuthenticator]:
         """Return a new authenticator object."""
-        if self.config["auth_token"]:
+        if "auth_token" in self.config:
             return BearerTokenAuthenticator(self, self.config["auth_token"])
         return None
 

@@ -1,8 +1,8 @@
 [tool.poetry]
 name = "tap-lichess"
-version = "0.0.1"
+version = "1.0.0"
 description = "`tap-lichess` is a Singer tap for Lichess, built with the Meltano SDK for Singer Taps."
-authors = ["Julian Knight"]
+authors = ["Julian Knight <cjk@rabidaudio.com>"]
 keywords = [
     "ELT",
     "Lichess",

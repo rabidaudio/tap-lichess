@@ -4,6 +4,7 @@ import json
 from typing import Any, Iterable, List, Optional
 
 import requests
+from singer import Schema
 from singer_sdk.pagination import BaseAPIPaginator, SinglePagePaginator
 
 from tap_lichess.client import LichessStream
@@ -79,6 +80,19 @@ class UserChildStream(LichessStream):
     parent_stream_type = UsersStream
     ignore_parent_replication_key = True
     state_partitioning_keys = ["username"]
+
+    @property
+    def schema(self) -> dict:
+        # Add the username to the schema
+        ss = Schema.from_dict(super().schema)
+        ss.properties["username"] = Schema(type="string")
+        return ss.to_dict()
+
+    def post_process(self, row: dict, context: Optional[dict] = None) -> Optional[dict]:
+        # add the username from context as it isn't in the response body
+        assert context is not None
+        row["username"] = context["username"]
+        return super().post_process(row, context)
 
 
 class GamesStream(UserChildStream):
