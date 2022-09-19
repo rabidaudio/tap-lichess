@@ -1,9 +1,9 @@
 """Stream type classes for tap-lichess."""
 
-import requests
 import json
-from typing import Any, List, Iterable, Optional
+from typing import Any, Iterable, List, Optional
 
+import requests
 from singer_sdk.pagination import BaseAPIPaginator, SinglePagePaginator
 
 from tap_lichess.client import LichessStream
@@ -12,15 +12,15 @@ from tap_lichess.client import LichessStream
 class ListPaginator(BaseAPIPaginator[List[Any]]):
     """Given a static list and a step size, generate pages from that list."""
 
-    def __init__(self, items: List[Any], step: int = 1) -> None:
+    def __init__(self, items: List[Any], step: int = 1):
         super().__init__(start_value=items[0:step])
         self.items = items
         self.step = step
-        self.index = 0 
+        self.index = 0
 
-    def get_next(self, response: requests.Response) -> List[Any] | None:
+    def get_next(self, response: requests.Response) -> Optional[List[Any]]:
         self.index += self.step
-        chunk = self.items[self.index : self.index + self.step]
+        chunk = self.items[self.index : (self.index + self.step)]
         if len(chunk) == 0:
             return None
         return chunk
@@ -29,10 +29,11 @@ class ListPaginator(BaseAPIPaginator[List[Any]]):
 class UsersStream(LichessStream):
     """
     Read user profile info.
-    
+
     This one is a little strange, you post up to 300 usernames
     in CSV form and get a JSON array back.
     """
+
     name = "users"
     path = "/api/users"
     primary_keys = ["id"]
@@ -41,10 +42,10 @@ class UsersStream(LichessStream):
     step_size = 300
 
     def get_new_paginator(self) -> BaseAPIPaginator:
-        return ListPaginator(self.config['usernames'], self.step_size)
+        return ListPaginator(self.config["usernames"], self.step_size)
 
     def prepare_request(
-        self, context: dict | None, next_page_token: List[Any]
+        self, context: Optional[dict], next_page_token: List[Any]
     ) -> requests.PreparedRequest:
         http_method = self.rest_method
         url: str = self.get_url(context)
@@ -69,7 +70,7 @@ class UsersStream(LichessStream):
         }
 
     def get_child_context(self, record: dict, context: Optional[dict]) -> dict:
-        return { "username": record["id"] }
+        return {"username": record["id"]}
 
 
 class UserChildStream(LichessStream):
@@ -83,10 +84,11 @@ class UserChildStream(LichessStream):
 class GamesStream(UserChildStream):
     """
     Stream of chess games.
-    
+
     This one is also a bit weird, it returns games in nd-json (jsonl)
     format. It's unpaged, instead streaming all games in one request.
     """
+
     name = "games"
     path = "/api/games/user/{username}"
     primary_keys = ["id"]
@@ -101,7 +103,9 @@ class GamesStream(UserChildStream):
     def get_new_paginator(self) -> BaseAPIPaginator:
         return SinglePagePaginator()
 
-    def get_url_params(self, context: dict | None, next_page_token: None) -> dict[str, Any]:
+    def get_url_params(
+        self, context: Optional[dict], next_page_token: None
+    ) -> dict[str, Any]:
         params = {
             "sort": "dateAsc",
             "pgnInJson": "true",

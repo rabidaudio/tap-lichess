@@ -5,10 +5,10 @@ from pathlib import Path
 from typing import Optional
 
 from memoization import cached
-
 from singer_sdk.authenticators import BearerTokenAuthenticator
 
 from tap_lichess.openapi import OpenApi3Stream
+
 
 class LichessStream(OpenApi3Stream):
     """Lichess stream class."""
@@ -24,8 +24,8 @@ class LichessStream(OpenApi3Stream):
     @cached
     def authenticator(self) -> Optional[BearerTokenAuthenticator]:
         """Return a new authenticator object."""
-        if self.config['auth_token']:
-            return BearerTokenAuthenticator(self, self.config['auth_token'])
+        if self.config["auth_token"]:
+            return BearerTokenAuthenticator(self, self.config["auth_token"])
         return None
 
     @property

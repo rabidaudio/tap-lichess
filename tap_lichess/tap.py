@@ -2,39 +2,39 @@
 
 from typing import List
 
-from singer_sdk import Tap, Stream
+from singer_sdk import Stream, Tap
 from singer_sdk import typing as th  # JSON schema typing helpers
 
-from tap_lichess.streams import (
-    UsersStream,
-    GamesStream,
-)
+from tap_lichess.streams import GamesStream, UsersStream
 
 STREAM_TYPES = [
     UsersStream,
     GamesStream,
 ]
 
+
 class TapLichess(Tap):
     """Lichess tap class."""
+
     name = "tap-lichess"
 
     config_jsonschema = th.PropertiesList(
         th.Property(
             "auth_token",
             th.StringType,
-            description="The token to authenticate against the API service. Not required."
+            description="The token to authenticate against the API service. "
+            "Not required.",
         ),
         th.Property(
             "usernames",
             th.ArrayType(th.StringType),
             required=True,
-            description="Lichess account ids to fetch data for"
+            description="Lichess account ids to fetch data for",
         ),
         th.Property(
             "start_date",
             th.DateTimeType,
-            description="The earliest record date to sync"
+            description="The earliest record date to sync",
         ),
     ).to_dict()
 

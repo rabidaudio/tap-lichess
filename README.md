@@ -14,7 +14,7 @@ There are plenty more interesting data sources available from [the API](https://
 Install from GitHub:
 
 ```bash
-pipx install git+https://github.com/ORG_NAME/tap-lichess.git@main
+pipx install git+https://github.com/ORG_NAME/tap-lichess.git@v1.0.0
 ```
 
 ## Configuration
