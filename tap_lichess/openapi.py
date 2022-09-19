@@ -12,18 +12,18 @@ from singer.schema import Schema
 class OpenApi3Stream(RESTStream):
     """A RESTStream that can be configured using an OpenApi 3 schema."""
 
+    content_type = "application/json"
+
     def __init__(
         self,
         tap: TapBaseClass,
         name: str | None = None,
         schema: dict[str, Any] | Schema | None = None,
         api_schema: dict[str, Any] = None,
-        content_type: str = "application/json",
     ) -> None:
         super().__init__(name=name, schema=schema, tap=tap)
         if api_schema:
           self.api_schema = api_schema
-        self.content_type = content_type
 
     @property
     @cached
@@ -40,7 +40,10 @@ class OpenApi3Stream(RESTStream):
       raw_schema = self.get_method_definition().responses['200'].content[self.content_type].schema
       # __get_state__ will resolve openapi references but include every possible property.
       # Passing this through Schema.from_dict will sanitize that output
-      return Schema.from_dict(raw_schema.__getstate__()).to_dict()['items']
+      schema = Schema.from_dict(raw_schema.__getstate__()).to_dict()
+      if 'items' in schema:
+        return schema['items']
+      return schema
 
     def get_method_definition(self) -> Operation:
       return self.api.paths[self.path].__getattribute__(self.rest_method.lower())

@@ -1,13 +1,13 @@
 """Stream type classes for tap-lichess."""
 
 import requests
-from typing import Any, List, Iterable
-
-from singer_sdk import typing as th  # JSON Schema typing helpers
+import json
+from typing import Any, List, Iterable, Optional
 
 from singer_sdk.pagination import BaseAPIPaginator, SinglePagePaginator
 
 from tap_lichess.client import LichessStream
+
 
 class ListPaginator(BaseAPIPaginator[List[Any]]):
     """Given a static list and a step size, generate pages from that list."""
@@ -24,6 +24,7 @@ class ListPaginator(BaseAPIPaginator[List[Any]]):
         if len(chunk) == 0:
             return None
         return chunk
+
 
 class UsersStream(LichessStream):
     """
@@ -67,6 +68,10 @@ class UsersStream(LichessStream):
             "Content-Type": "text/plain",
         }
 
+    def get_child_context(self, record: dict, context: Optional[dict]) -> dict:
+        return { "username": record["id"] }
+
+
 class UserChildStream(LichessStream):
     """Base class for child streams by user."""
 
@@ -74,22 +79,42 @@ class UserChildStream(LichessStream):
     ignore_parent_replication_key = True
     state_partitioning_keys = ["username"]
 
-    # def post_process(self, row: dict, context: Optional[dict] = None) -> Optional[dict]:
-    #     """As needed, append or transform raw data to match expected structure."""
-    #     # add the username from context as it isn't in the response body
-    #     assert context is not None
-    #     row["username"] = context["username"]
-    #     return super().post_process(row, context)
 
-class GameStream(LichessStream):
-    """Stream of chess games."""
-    name = "games"
-    path = "/games/user/{username}"
-    primary_keys = ["id"]
-    # replication_key = 
+class GamesStream(UserChildStream):
+    """
+    Stream of chess games.
     
-    # "Accept": "application/nd-json",
+    This one is also a bit weird, it returns games in nd-json (jsonl)
+    format. It's unpaged, instead streaming all games in one request.
+    """
+    name = "games"
+    path = "/api/games/user/{username}"
+    primary_keys = ["id"]
+    replication_key = "createdAt"
+    content_type = "application/x-ndjson"
+
+    def __init__(self, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
+        # override the request session to enable stream mode
+        self.requests_session.stream = True
+
+    def get_new_paginator(self) -> BaseAPIPaginator:
+        return SinglePagePaginator()
+
+    def get_url_params(self, context: dict | None, next_page_token: None) -> dict[str, Any]:
+        params = {
+            "sort": "dateAsc",
+            "pgnInJson": "true",
+            "clocks": "true",
+            "evals": "true",
+            "opening": "true",
+            "literate": "true",
+        }
+        start_at = self.get_starting_timestamp(context)
+        if start_at:
+            params["since"] = int(start_at.timestamp())
+        return params
 
     def parse_response(self, response: requests.Response) -> Iterable[dict]:
-        """Parse the response and return an iterator of result records."""
-        import pdb; pdb.set_trace()
+        for line in response.iter_lines():
+            yield json.loads(line)
