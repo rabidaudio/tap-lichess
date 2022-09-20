@@ -2,7 +2,7 @@
 
 import json
 from pathlib import Path
-from typing import Any, Iterable, List, Optional
+from typing import Any, Dict, Iterable, List, Optional
 
 import requests
 from singer import Schema
@@ -123,7 +123,7 @@ class GamesStream(UserChildStream):
 
     def get_url_params(
         self, context: Optional[dict], next_page_token: None
-    ) -> dict[str, Any]:
+    ) -> Dict[str, Any]:
         params = {
             "sort": "dateAsc",
             "pgnInJson": "true",

@@ -1,7 +1,5 @@
 """REST client handling, including LichessStream base class."""
 
-import json
-from pathlib import Path
 from typing import Optional
 
 from memoization import cached
@@ -14,11 +12,6 @@ class LichessStream(RESTStream):
 
     url_base = "https://lichess.org/api"
     content_type = "application/json"
-
-    @property
-    def api_schema(self) -> dict:
-        with open(Path(__file__).parent / Path("openapi.json")) as f:
-            return json.load(f)
 
     @property
     @cached
