@@ -5,14 +5,14 @@ from pathlib import Path
 from typing import Optional
 
 from memoization import cached
+from singer_sdk import RESTStream
 from singer_sdk.authenticators import BearerTokenAuthenticator
 
-from tap_lichess.openapi import OpenApi3Stream
 
-
-class LichessStream(OpenApi3Stream):
+class LichessStream(RESTStream):
     """Lichess stream class."""
 
+    url_base = "https://lichess.org/api"
     content_type = "application/json"
 
     @property

@@ -1,0 +1,336 @@
+{
+  "properties": {
+    "id": {
+      "type": ["null", "string"]
+    },
+    "username": {
+      "type": ["null", "string"]
+    },
+    "online": {
+      "type": ["null", "boolean"]
+    },
+    "perfs": {
+      "properties": {
+        "chess960": {
+          "properties": {
+            "games": {
+              "type": ["null", "integer"]
+            },
+            "rating": {
+              "type": ["null", "integer"]
+            },
+            "rd": {
+              "type": ["null", "integer"]
+            },
+            "prog": {
+              "type": ["null", "integer"]
+            },
+            "prov": {
+              "type": ["null", "boolean"]
+            }
+          },
+          "type": "object"
+        },
+        "atomic": {
+          "properties": {
+            "games": {
+              "type": ["null", "integer"]
+            },
+            "rating": {
+              "type": ["null", "integer"]
+            },
+            "rd": {
+              "type": ["null", "integer"]
+            },
+            "prog": {
+              "type": ["null", "integer"]
+            },
+            "prov": {
+              "type": ["null", "boolean"]
+            }
+          },
+          "type": "object"
+        },
+        "racingKings": {
+          "properties": {
+            "games": {
+              "type": ["null", "integer"]
+            },
+            "rating": {
+              "type": ["null", "integer"]
+            },
+            "rd": {
+              "type": ["null", "integer"]
+            },
+            "prog": {
+              "type": ["null", "integer"]
+            },
+            "prov": {
+              "type": ["null", "boolean"]
+            }
+          },
+          "type": "object"
+        },
+        "ultraBullet": {
+          "properties": {
+            "games": {
+              "type": ["null", "integer"]
+            },
+            "rating": {
+              "type": ["null", "integer"]
+            },
+            "rd": {
+              "type": ["null", "integer"]
+            },
+            "prog": {
+              "type": ["null", "integer"]
+            },
+            "prov": {
+              "type": ["null", "boolean"]
+            }
+          },
+          "type": "object"
+        },
+        "blitz": {
+          "properties": {
+            "games": {
+              "type": ["null", "integer"]
+            },
+            "rating": {
+              "type": ["null", "integer"]
+            },
+            "rd": {
+              "type": ["null", "integer"]
+            },
+            "prog": {
+              "type": ["null", "integer"]
+            },
+            "prov": {
+              "type": ["null", "boolean"]
+            }
+          },
+          "type": "object"
+        },
+        "kingOfTheHill": {
+          "properties": {
+            "games": {
+              "type": ["null", "integer"]
+            },
+            "rating": {
+              "type": ["null", "integer"]
+            },
+            "rd": {
+              "type": ["null", "integer"]
+            },
+            "prog": {
+              "type": ["null", "integer"]
+            },
+            "prov": {
+              "type": ["null", "boolean"]
+            }
+          },
+          "type": "object"
+        },
+        "bullet": {
+          "properties": {
+            "games": {
+              "type": ["null", "integer"]
+            },
+            "rating": {
+              "type": ["null", "integer"]
+            },
+            "rd": {
+              "type": ["null", "integer"]
+            },
+            "prog": {
+              "type": ["null", "integer"]
+            },
+            "prov": {
+              "type": ["null", "boolean"]
+            }
+          },
+          "type": "object"
+        },
+        "correspondence": {
+          "properties": {
+            "games": {
+              "type": ["null", "integer"]
+            },
+            "rating": {
+              "type": ["null", "integer"]
+            },
+            "rd": {
+              "type": ["null", "integer"]
+            },
+            "prog": {
+              "type": ["null", "integer"]
+            },
+            "prov": {
+              "type": ["null", "boolean"]
+            }
+          },
+          "type": "object"
+        },
+        "horde": {
+          "properties": {
+            "games": {
+              "type": ["null", "integer"]
+            },
+            "rating": {
+              "type": ["null", "integer"]
+            },
+            "rd": {
+              "type": ["null", "integer"]
+            },
+            "prog": {
+              "type": ["null", "integer"]
+            },
+            "prov": {
+              "type": ["null", "boolean"]
+            }
+          },
+          "type": "object"
+        },
+        "puzzle": {
+          "properties": {
+            "games": {
+              "type": ["null", "integer"]
+            },
+            "rating": {
+              "type": ["null", "integer"]
+            },
+            "rd": {
+              "type": ["null", "integer"]
+            },
+            "prog": {
+              "type": ["null", "integer"]
+            },
+            "prov": {
+              "type": ["null", "boolean"]
+            }
+          },
+          "type": "object"
+        },
+        "classical": {
+          "properties": {
+            "games": {
+              "type": ["null", "integer"]
+            },
+            "rating": {
+              "type": ["null", "integer"]
+            },
+            "rd": {
+              "type": ["null", "integer"]
+            },
+            "prog": {
+              "type": ["null", "integer"]
+            },
+            "prov": {
+              "type": ["null", "boolean"]
+            }
+          },
+          "type": "object"
+        },
+        "rapid": {
+          "properties": {
+            "games": {
+              "type": ["null", "integer"]
+            },
+            "rating": {
+              "type": ["null", "integer"]
+            },
+            "rd": {
+              "type": ["null", "integer"]
+            },
+            "prog": {
+              "type": ["null", "integer"]
+            },
+            "prov": {
+              "type": ["null", "boolean"]
+            }
+          },
+          "type": "object"
+        },
+        "storm": {
+          "properties": {
+            "runs": {
+              "type": ["null", "integer"]
+            },
+            "score": {
+              "type": ["null", "integer"]
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    },
+    "createdAt": {
+      "format": "int64",
+      "type": ["null", "integer"]
+    },
+    "disabled": {
+      "type": ["null", "boolean"]
+    },
+    "tosViolation": {
+      "type": ["null", "boolean"]
+    },
+    "profile": {
+      "properties": {
+        "country": {
+          "type": ["null", "string"]
+        },
+        "location": {
+          "type": ["null", "string"]
+        },
+        "bio": {
+          "type": ["null", "string"]
+        },
+        "firstName": {
+          "type": ["null", "string"]
+        },
+        "lastName": {
+          "type": ["null", "string"]
+        },
+        "fideRating": {
+          "type": ["null", "integer"]
+        },
+        "uscfRating": {
+          "type": ["null", "integer"]
+        },
+        "ecfRating": {
+          "type": ["null", "integer"]
+        },
+        "links": {
+          "type": ["null", "string"]
+        }
+      },
+      "type": "object"
+    },
+    "seenAt": {
+      "format": "int64",
+      "type": ["null", "integer"]
+    },
+    "patron": {
+      "type": ["null", "boolean"]
+    },
+    "verified": {
+      "type": ["null", "boolean"]
+    },
+    "playTime": {
+      "properties": {
+        "total": {
+          "type": ["null", "integer"]
+        },
+        "tv": {
+          "type": ["null", "integer"]
+        }
+      },
+      "type": "object"
+    },
+    "title": {
+      "type": ["null", "string"]
+    }
+  },
+  "type": "object"
+}

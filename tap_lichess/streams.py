@@ -1,6 +1,7 @@
 """Stream type classes for tap-lichess."""
 
 import json
+from pathlib import Path
 from typing import Any, Iterable, List, Optional
 
 import requests
@@ -8,6 +9,8 @@ from singer import Schema
 from singer_sdk.pagination import BaseAPIPaginator, SinglePagePaginator
 
 from tap_lichess.client import LichessStream
+
+SCHEMAS_DIR = Path(__file__).parent / Path("./schemas")
 
 
 class ListPaginator(BaseAPIPaginator[List[Any]]):
@@ -36,9 +39,10 @@ class UsersStream(LichessStream):
     """
 
     name = "users"
-    path = "/api/users"
+    path = "/users"
     primary_keys = ["id"]
     replication_key = None
+    schema_filepath = SCHEMAS_DIR / "users.json"
     rest_method = "POST"
     step_size = 300
 
@@ -52,7 +56,6 @@ class UsersStream(LichessStream):
         url: str = self.get_url(context)
         params: dict = self.get_url_params(context, next_page_token)
         headers = self.http_headers
-        # if there isn't a next page, load the first page
         body: str = ",".join(next_page_token)
 
         return self.build_prepared_request(
@@ -104,9 +107,10 @@ class GamesStream(UserChildStream):
     """
 
     name = "games"
-    path = "/api/games/user/{username}"
+    path = "/games/user/{username}"
     primary_keys = ["id"]
     replication_key = "createdAt"
+    schema_filepath = SCHEMAS_DIR / "games.json"
     content_type = "application/x-ndjson"
 
     def __init__(self, *args, **kwargs) -> None:

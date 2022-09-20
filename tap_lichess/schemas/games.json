@@ -1,0 +1,228 @@
+{
+  "properties": {
+    "id": {
+      "type": ["null", "string"]
+    },
+    "rated": {
+      "type": ["null", "boolean"]
+    },
+    "variant": {
+      "type": ["null", "string"]
+    },
+    "speed": {
+      "type": ["null", "string"]
+    },
+    "perf": {
+      "type": ["null", "string"]
+    },
+    "createdAt": {
+      "format": "int64",
+      "type": ["null", "number"]
+    },
+    "lastMoveAt": {
+      "format": "int64",
+      "type": ["null", "number"]
+    },
+    "status": {
+      "description": "Game status code. https://github.com/ornicar/scalachess/blob/0a7d6f2c63b1ca06cd3c958ed3264e738af5c5f6/src/main/scala/Status.scala#L16-L28",
+      "type": ["null", "string"]
+    },
+    "players": {
+      "properties": {
+        "white": {
+          "properties": {
+            "user": {
+              "properties": {
+                "name": {
+                  "type": ["null", "string"]
+                },
+                "title": {},
+                "patron": {
+                  "type": ["null", "boolean"]
+                },
+                "id": {
+                  "type": ["null", "string"]
+                }
+              },
+              "type": "object"
+            },
+            "rating": {
+              "type": ["null", "number"]
+            },
+            "ratingDiff": {
+              "type": ["null", "number"]
+            },
+            "name": {
+              "type": ["null", "string"]
+            },
+            "provisional": {
+              "type": ["null", "boolean"]
+            },
+            "aiLevel": {
+              "type": ["null", "number"]
+            },
+            "analysis": {
+              "properties": {
+                "inaccuracy": {
+                  "type": ["null", "number"]
+                },
+                "mistake": {
+                  "type": ["null", "number"]
+                },
+                "blunder": {
+                  "type": ["null", "number"]
+                },
+                "acpl": {
+                  "type": ["null", "number"]
+                }
+              },
+              "type": "object"
+            },
+            "team": {
+              "type": ["null", "string"]
+            }
+          },
+          "type": "object"
+        },
+        "black": {
+          "properties": {
+            "user": {
+              "properties": {
+                "name": {
+                  "type": ["null", "string"]
+                },
+                "title": {},
+                "patron": {
+                  "type": ["null", "boolean"]
+                },
+                "id": {
+                  "type": ["null", "string"]
+                }
+              },
+              "type": "object"
+            },
+            "rating": {
+              "type": ["null", "number"]
+            },
+            "ratingDiff": {
+              "type": ["null", "number"]
+            },
+            "name": {
+              "type": ["null", "string"]
+            },
+            "provisional": {
+              "type": ["null", "boolean"]
+            },
+            "aiLevel": {
+              "type": ["null", "number"]
+            },
+            "analysis": {
+              "properties": {
+                "inaccuracy": {
+                  "type": ["null", "number"]
+                },
+                "mistake": {
+                  "type": ["null", "number"]
+                },
+                "blunder": {
+                  "type": ["null", "number"]
+                },
+                "acpl": {
+                  "type": ["null", "number"]
+                }
+              },
+              "type": "object"
+            },
+            "team": {
+              "type": ["null", "string"]
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    },
+    "initialFen": {
+      "type": ["null", "string"]
+    },
+    "winner": {
+      "type": ["null", "string"]
+    },
+    "opening": {
+      "properties": {
+        "eco": {
+          "type": ["null", "string"]
+        },
+        "name": {
+          "type": ["null", "string"]
+        },
+        "ply": {
+          "type": ["null", "number"]
+        }
+      },
+      "type": "object"
+    },
+    "moves": {
+      "type": ["null", "string"]
+    },
+    "pgn": {
+      "type": ["null", "string"]
+    },
+    "daysPerTurn": {
+      "type": ["null", "number"]
+    },
+    "analysis": {
+      "items": {
+        "properties": {
+          "eval": {
+            "description": "Evaluation in centipawns",
+            "type": ["null", "number"]
+          },
+          "best": {
+            "description": "Best move in UCI notation (only if played move was inaccurate)",
+            "type": ["null", "string"]
+          },
+          "variation": {
+            "description": "Best variation in SAN notation (only if played move was inaccurate)",
+            "type": ["null", "string"]
+          },
+          "judgment": {
+            "properties": {
+              "name": {
+                "type": ["null", "string"]
+              },
+              "comment": {
+                "type": ["null", "string"]
+              }
+            },
+            "description": "Judgment annotation (only if played move was inaccurate)",
+            "type": "object"
+          }
+        },
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "tournament": {
+      "type": ["null", "string"]
+    },
+    "swiss": {
+      "type": ["null", "string"]
+    },
+    "clock": {
+      "properties": {
+        "initial": {
+          "type": ["null", "number"]
+        },
+        "increment": {
+          "type": ["null", "number"]
+        },
+        "totalTime": {
+          "type": ["null", "number"]
+        }
+      },
+      "type": "object"
+    }
+  },
+  "type": "object"
+}
