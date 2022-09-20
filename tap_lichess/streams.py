@@ -132,9 +132,9 @@ class GamesStream(UserChildStream):
             "opening": "true",
             "literate": "true",
         }
-        start_at = self.get_starting_timestamp(context)
+        start_at = self.get_starting_replication_key_value(context)
         if start_at:
-            params["since"] = int(start_at.timestamp())
+            params["since"] = start_at
         return params
 
     def parse_response(self, response: requests.Response) -> Iterable[dict]:
