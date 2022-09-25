@@ -36,7 +36,9 @@
                 "name": {
                   "type": ["null", "string"]
                 },
-                "title": {},
+                "title": {
+                  "type": ["null", "string"]
+                },
                 "patron": {
                   "type": ["null", "boolean"]
                 },
@@ -91,7 +93,9 @@
                 "name": {
                   "type": ["null", "string"]
                 },
-                "title": {},
+                "title": {
+                  "type": ["null", "string"]
+                },
                 "patron": {
                   "type": ["null", "boolean"]
                 },
