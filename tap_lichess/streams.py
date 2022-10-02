@@ -134,7 +134,9 @@ class GamesStream(UserChildStream):
         }
         start_at = self.get_starting_replication_key_value(context)
         if start_at:
-            params["since"] = start_at
+            # Lichess treats "since" as >=, so without this it would continue to sync the latest game
+            # when there are no new games
+            params["since"] = start_at + 1
         return params
 
     def parse_response(self, response: requests.Response) -> Iterable[dict]:
